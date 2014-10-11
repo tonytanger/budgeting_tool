@@ -1,2 +1,13 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% if !flash[:notice].blank? %>
+  <div>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<h1><%= @user.username %></h1>
+
+<strong>email: </strong><%= @user.email %> <br />
+<strong>first name:</strong> <%= @user.first_name %> <br />
+<strong>last name:</strong> <%= @user.last_name %> <br />
+
+<%= link_to "Back to Index", {:action => "index"} %>
