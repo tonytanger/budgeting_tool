@@ -11,23 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141011210548) do
+ActiveRecord::Schema.define(version: 20141012011544) do
 
   create_table "accounts", force: true do |t|
-    t.integer  "user_id",                               null: false
-    t.string   "name",           limit: 35,             null: false
-    t.integer  "balance",                   default: 0
+    t.integer  "user_id",                              null: false
+    t.string   "name",          limit: 35,             null: false
+    t.integer  "balance",                  default: 0
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "account_number"
+    t.string   "accountNumber"
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
 
   create_table "transactions", force: true do |t|
     t.integer  "account_id",             null: false
-    t.integer  "cash_flow",  default: 0
+    t.integer  "cashFlow",   default: 0
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20141011210548) do
   create_table "users", force: true do |t|
     t.string   "username",   limit: 35,               null: false
     t.string   "email",      limit: 100,              null: false
-    t.string   "first_name",             default: ""
-    t.string   "last_name"
+    t.string   "firstName",              default: ""
+    t.string   "lastName"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password",   limit: 32,               null: false

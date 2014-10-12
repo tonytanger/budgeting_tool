@@ -1,2 +1,14 @@
-<h1>Transactions#show</h1>
-<p>Find me in app/views/transactions/show.html.erb</p>
+<% if !flash[:notice].blank? %>
+  <div>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<h1>Transaction #<%= @transaction.id %></h1>
+
+<strong>belongs to: </strong><%= !@transaction.account_id.blank? ? "User ##{@transaction.account_id}" : "not available" %> <br />
+<strong>cashflow: </strong>$<%= @transaction.cashFlow %> <br />
+<strong>note: </strong><%= @transaction.note %> <br />
+<strong>date: </strong><%= @transaction.created_at %> <br />
+
+<%= link_to "Back to Index", {:action => "index"} %>
