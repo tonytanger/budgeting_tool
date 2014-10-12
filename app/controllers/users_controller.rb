@@ -2,12 +2,43 @@ class UsersController < ApplicationController
 
   # display all User
   def index
-    @users = User.sorted
+    # OLD:
+    # @users = User.sorted
+    # 
+    
+    # FEATURE: add "remember me" check
+    if !session[:current_user_id]
+      if params.has_key?(:user) and params.has_key?(:commit)
+        @user = User.find_by_username(params[:user][:username])
+        puts "password: #{params[:user][:password]}"
+        if !params[:user][:password].blank? and @user.password == params[:user][:password]
+          # username/password combo found
+          session[:current_user_id] = @user.id
+          flash[:success] = "Signed In Successfully."
+          redirect_to(:action => "show")
+        else
+          # username/password combo not found
+          flash[:notice] = "Username/Password Combo Not Valid. Please try again!"
+        end
+      else
+        @user = User.new 
+      end
+    elsif session[:current_user_id]
+      @user = User.find_by_id(session[:current_user_id])
+      redirect_to(:action => "show")
+    end
+
   end
 
   # display single User
   def show
-    @user = User.find_by_id(params[:id])
+    checkUserStatus
+    if session[:current_user_id]
+      @user = User.find_by_id(session[:current_user_id])
+      @accounts = Account.where(user_id: "#{@user.id}")
+    else
+      @user = User.find_by_id(params[:id])
+    end
   end
 
   # display new User
@@ -17,6 +48,7 @@ class UsersController < ApplicationController
 
   # create User
   def create
+    checkUserStatus
     @user = User.new(user_params)
 
     if @user.save
@@ -29,11 +61,13 @@ class UsersController < ApplicationController
 
   # display edit User
   def edit
+    checkUserStatus
     @user = User.find_by_id(params[:id])
   end
 
   # update User
   def update
+    checkUserStatus
     @user = User.find_by_id(params[:id])
 
     if @user.update_attributes(user_params)
@@ -46,11 +80,18 @@ class UsersController < ApplicationController
 
   # destry User
   def destroy
+    checkUserStatus
     user = User.find_by_id(params[:id]).destroy
     flash[:notice] = "User '#{user.username}' deleted successfully!"
     redirect_to( :action => "index")
   end
 
+  def sign_out
+    checkUserStatus
+    session[:current_user_id] = nil
+    flash[:success] = "Successfully Signed out"
+    redirect_to( :action => "index")
+  end
 
   private
 
@@ -60,4 +101,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:username, :password, :email, :firstName, :lastName)
     end
 
+    def checkUserStatus
+      if !session[:current_user_id]
+        redirect_to(:controller => "users", :action => "index")
+      end
+    end
 end

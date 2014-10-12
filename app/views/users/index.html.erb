@@ -1,34 +1,15 @@
+<h1>Sign In</h1>
+
+<%= form_for(:user, :url => {:action => "index"}) do |f| %>
+
+  <label for="user_username">Username </label>
+  <%= f.text_field(:username) %><br />
+
+  <label for="user_password">Password</label>
+  <%= f.text_field(:password, :type => 'password') %><br />
+  
+  <%= submit_tag("Sign In") %>
+
+<% end %>
+
 <%= link_to("Sign up", {:action => "new"} ) %>
-
-<table border="1px">
-  <tr>
-    <th>id</th>
-    <th>username</th>
-    <th>password</th>
-    <th>email</th>
-    <th>first name</th>
-    <th>last name</th>
-    <th>actions</th>
-  </tr>
-  <% @users.each do |user| %>
-    <tr>
-        <td>
-          <%= link_to(:action => "show", :id => user.id) do %>
-            <%= user.id %>
-          <% end %>
-        </td>
-        <td><%= user.username %></td>
-        <td><%= user.password %></td>
-        <td><%= user.email %></td>
-        <td><%= user.firstName %></td>
-        <td><%= user.lastName %></td>
-        <td>
-
-          <%= link_to "show", {:action => "show", :id => user.id} %>
-          <%= link_to "edit", {:action => "edit", :id => user.id} %>
-          <%= link_to "delete", {:action => "destroy", :id => user.id} %>
-        </td>
-    </tr>
-  <% end %>
-
-</table>

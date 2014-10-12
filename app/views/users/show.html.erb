@@ -1,8 +1,16 @@
 <h1><%= @user.username %></h1>
 
+<strong>id: </strong><%= @user.id %> <br />
 <strong>email: </strong><%= @user.email %> <br />
 <strong>password: </strong><%= @user.password %> <br />
 <strong>first name:</strong> <%= @user.firstName %> <br />
 <strong>last name:</strong> <%= @user.lastName %> <br />
 
-<%= link_to "Back to Index", {:action => "index"} %>
+<% @accounts.each do |account| %>
+  <%= link_to("Account: #{account.id}", {:controller => :accounts, :action => :show, :id => account.id }) %><br />
+<% end %>
+<br />
+<%= link_to("Add Account", {:controller => "accounts", :action => "new"}) %>
+<br />
+
+<%= link_to("Sign out", {:action => "sign_out"}) %>

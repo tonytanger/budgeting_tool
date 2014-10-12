@@ -1,16 +1,18 @@
-<%= link_to("Add new transaction", {:action => "new"} ) %>
-
 <table border="1px">
   <tr>
     <th>id</th>
     <th>account id</th>
     <th>caseflow</th>
     <th>note</th>
-    <th>actions</th>
     <th>date</th>
+    <th>actions</th>
   </tr>
   <% @transactions.each do |transaction| %>
-    <tr>
+    <tr
+      <% if transaction.user_id == session[:current_user_id] %>
+        class="current_user_transaction"
+      <% end %>
+    >
         <td>
           <%= link_to(:action => "show", :id => transaction.id) do %>
             <%= transaction.id %>
@@ -30,3 +32,4 @@
   <% end %>
 
 </table>
+
