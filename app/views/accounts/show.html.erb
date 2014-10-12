@@ -1,2 +1,14 @@
-<h1>Accounts#show</h1>
-<p>Find me in app/views/accounts/show.html.erb</p>
+<% if !flash[:notice].blank? %>
+  <div>
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<h1><%= @account.name %></h1>
+
+<strong>belongs to: </strong> <%= !@account.user_id.blank? ? "User ##{@account.user_id}" : "not available" %> <br />
+<strong>balance: </strong><%= @account.balance %> <br />
+<strong>account number:</strong> <%= @account.account_number %> <br />
+<strong>description:</strong> <%= @account.description %> <br />
+
+<%= link_to "Back to Index", {:action => "index"} %>
