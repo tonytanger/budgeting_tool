@@ -1,14 +1,8 @@
-<% if !flash[:notice].blank? %>
-  <div>
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-
 <h1><%= @account.name %></h1>
 
 <strong>belongs to: </strong> <%= !@account.user_id.blank? ? "User ##{@account.user_id}" : "not available" %> <br />
 <strong>balance: </strong><%= @account.balance %> <br />
-<strong>account number:</strong> <%= @account.account_number %> <br />
+<strong>account number:</strong> <%= @account.accountNumber %> <br />
 <strong>description:</strong> <%= @account.description %> <br />
 
 <%= link_to "Back to Index", {:action => "index"} %>

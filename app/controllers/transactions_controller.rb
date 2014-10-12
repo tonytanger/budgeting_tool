@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  layout false
+
   def index
     @transactions = Transaction.sorted
   end

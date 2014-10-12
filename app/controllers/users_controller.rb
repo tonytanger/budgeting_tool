@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout false
 
   # display all User
   def index
@@ -58,7 +57,7 @@ class UsersController < ApplicationController
     # this requires user to be instantiated
     # this also allows the fields to be mass assigned
     def user_params
-      params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
+      params.require(:user).permit(:username, :password, :email, :firstName, :lastName)
     end
 
 end

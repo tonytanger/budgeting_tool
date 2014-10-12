@@ -1,9 +1,3 @@
-<% if !flash[:notice].blank? %>
-  <div>
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-
 <h1>Transaction #<%= @transaction.id %></h1>
 
 <strong>belongs to: </strong><%= !@transaction.account_id.blank? ? "User ##{@transaction.account_id}" : "not available" %> <br />

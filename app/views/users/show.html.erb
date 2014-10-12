@@ -1,14 +1,8 @@
-<% if !flash[:notice].blank? %>
-  <div>
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-
 <h1><%= @user.username %></h1>
 
 <strong>email: </strong><%= @user.email %> <br />
 <strong>password: </strong><%= @user.password %> <br />
-<strong>first name:</strong> <%= @user.first_name %> <br />
-<strong>last name:</strong> <%= @user.last_name %> <br />
+<strong>first name:</strong> <%= @user.firstName %> <br />
+<strong>last name:</strong> <%= @user.lastName %> <br />
 
 <%= link_to "Back to Index", {:action => "index"} %>

@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  layout false
+
   def index
     @accounts = Account.sorted
   end
@@ -47,6 +47,6 @@ class AccountsController < ApplicationController
 
     def account_params
       # TODO: restirct user_id param field by form
-      params.require(:account).permit(:name, :user_id, :balance, :account_number, :description)
+      params.require(:account).permit(:name, :user_id, :balance, :accountNumber, :description)
     end
 end
