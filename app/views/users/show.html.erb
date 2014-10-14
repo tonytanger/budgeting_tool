@@ -3,8 +3,8 @@
 <strong>id: </strong><%= @user.id %> <br />
 <strong>email: </strong><%= @user.email %> <br />
 <strong>password: </strong><%= @user.password %> <br />
-<strong>first name:</strong> <%= @user.firstName %> <br />
-<strong>last name:</strong> <%= @user.lastName %> <br />
+<strong>first name:</strong> <%= @user.first_name %> <br />
+<strong>last name:</strong> <%= @user.last_name %> <br />
 
 <% @accounts.each do |account| %>
   <%= link_to("Account: #{account.id}", {:controller => :accounts, :action => :show, :id => account.id }) %><br />

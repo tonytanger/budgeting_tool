@@ -67,7 +67,7 @@ class AccountsController < ApplicationController
 
     def account_params
       # TODO: restirct user_id param field by form
-      params.require(:account).permit(:name, :user_id, :balance, :accountNumber, :description)
+      params.require(:account).permit(:name, :user_id, :balance, :account_number, :description)
     end
 
     def checkUserStatus

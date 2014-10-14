@@ -1,3 +1,5 @@
+<%= error_messages_for(@user) %>
+
 <%= f.label(:username) %>
 <%= f.text_field(:username) %><br />
 
@@ -7,8 +9,8 @@
 <%= f.label(:email) %>
 <%= f.email_field(:email) %><br />
 
-<%= f.label(:firstName, "First Name") %>
-<%= f.text_field(:firstName) %><br />
+<%= f.label(:first_name, "First Name") %>
+<%= f.text_field(:first_name) %><br />
 
-<%= f.label(:lastName, "Last Name") %>
-<%= f.text_field(:lastName) %><br />
+<%= f.label(:last_name, "Last Name") %>
+<%= f.text_field(:last_name) %><br />

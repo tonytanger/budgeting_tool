@@ -2,7 +2,7 @@
   <tr>
     <th>id</th>
     <th>account id</th>
-    <th>caseflow</th>
+    <th>case flow</th>
     <th>note</th>
     <th>date</th>
     <th>actions</th>
@@ -19,9 +19,9 @@
           <% end %>
         </td>
         <td><%= transaction.account_id %></td>
-        <td><%= number_to_currency(transaction.cashFlow) %></td>
+        <td><%= number_to_currency(transaction.cash_flow) %></td>
         <td><%= transaction.note %></td>
-        <td><%= transaction.created_at %></td>
+        <td><%= transaction.receipt_date.blank? ? "" : transaction.receipt_date.to_formatted_s(:transaction) %></td>
         <td>
 
           <%= link_to "show", {:action => "show", :id => transaction.id} %>

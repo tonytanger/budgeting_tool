@@ -4,7 +4,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.integer :user_id, :null => false
       t.index :user_id
       t.string :name, :null => false
-      t.string :accountNumber
+      t.string :account_number
       t.integer :balance, :default => 0
       t.text :description
 
