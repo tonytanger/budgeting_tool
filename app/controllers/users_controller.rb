@@ -8,14 +8,16 @@ class UsersController < ApplicationController
     
     # FEATURE: add "remember me" check
     if !session[:current_user_id]
+      # not logged in
+      puts "Not Logged In!"
       if params.has_key?(:user) and params.has_key?(:commit)
         @user = User.find_by_username(params[:user][:username])
-        puts "password: #{params[:user][:password]}"
-        if !params[:user][:password].blank? and @user.password == params[:user][:password]
+        if !params[:user][:password].blank? and @user and @user.password == params[:user][:password]
           # username/password combo found
           session[:current_user_id] = @user.id
           flash[:success] = "Signed In Successfully."
           redirect_to(:action => "show")
+          return
         else
           # username/password combo not found
           flash[:notice] = "Username/Password Combo Not Valid. Please try again!"
@@ -23,9 +25,12 @@ class UsersController < ApplicationController
       else
         @user = User.new 
       end
-    elsif session[:current_user_id]
+    else
+      # logged in
+      puts "Session: #{session[:current_user_id]}"
       @user = User.find_by_id(session[:current_user_id])
       redirect_to(:action => "show")
+      return
     end
 
   end
@@ -34,8 +39,13 @@ class UsersController < ApplicationController
   def show
     checkUserStatus
     if session[:current_user_id]
-      @user = User.find_by_id(session[:current_user_id])
-      @accounts = Account.where(user_id: "#{@user.id}")
+      @user = User.find_by_id(session[:current_user_id]) # what is find_by_id returns nil?
+      if @user
+        @accounts = Account.where(user_id: "#{@user.id}")
+      else
+        redirect_to(:action => :sign_out)
+        return
+      end
     else
       @user = User.find_by_id(params[:id])
     end
@@ -48,12 +58,12 @@ class UsersController < ApplicationController
 
   # create User
   def create
-    checkUserStatus
     @user = User.new(user_params)
 
     if @user.save
       flash[:notice] = "User '#{@user.username}' created successfully!"
-      redirect_to( :action => 'index' )
+      redirect_to( :action => :index )
+      return
     else
       render('new')
     end
@@ -73,6 +83,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       flash[:notice] = "User '#{@user.username}' updated successfully!"
       redirect_to( :action => 'show', :id => @user.id )
+      return
     else
       render('edit')
     end
@@ -84,6 +95,7 @@ class UsersController < ApplicationController
     user = User.find_by_id(params[:id]).destroy
     flash[:notice] = "User '#{user.username}' deleted successfully!"
     redirect_to( :action => "index")
+    return
   end
 
   def sign_out
@@ -91,6 +103,7 @@ class UsersController < ApplicationController
     session[:current_user_id] = nil
     flash[:success] = "Successfully Signed out"
     redirect_to( :action => "index")
+    return
   end
 
   private
@@ -104,6 +117,7 @@ class UsersController < ApplicationController
     def checkUserStatus
       if !session[:current_user_id]
         redirect_to(:controller => "users", :action => "index")
+        return
       end
     end
 end
