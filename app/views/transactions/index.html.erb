@@ -19,7 +19,7 @@
           <% end %>
         </td>
         <td><%= transaction.account_id %></td>
-        <td>$<%= transaction.cashFlow %></td>
+        <td><%= number_to_currency(transaction.cashFlow) %></td>
         <td><%= transaction.note %></td>
         <td><%= transaction.created_at %></td>
         <td>

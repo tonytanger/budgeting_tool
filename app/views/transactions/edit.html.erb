@@ -2,15 +2,9 @@
 
 <%= form_for(:transaction, :url => {:action => 'update', :id => @transaction.id}) do |f| %>
 
-  <label for="transaction_account_id">account id</label>
-  <%= f.text_field(:account_id) %><br />
-
-  <label for="transaction_cashFlow">cash flow</label>
-  <%= f.text_field(:cashFlow) %><br />
-
-  <label for="transaction_note">note</label>
-  <%= f.text_field(:note) %><br />
+  <%= render(:partial => "form", :locals => {:f => f}) %>
 
   <%= submit_tag("Update Transaction") %>
 
 <% end %>
+

@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   # display edit User
   def edit
     checkUserStatus
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(session[:current_user_id])
   end
 
   # update User

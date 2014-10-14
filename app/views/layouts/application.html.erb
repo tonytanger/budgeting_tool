@@ -58,9 +58,10 @@
     <% end %>
     <nav>
       <ul>
-        <li><%= link_to("accounts", {:controller => :accounts, :action => :index})%></li>
-        <li><%= link_to("transactions", {:controller => :transactions, :action => :index})%></li>
-        <li><%= link_to("add account", {:controller => :accounts, :action => :new})%></li>
+        <li><%= link_to("user", {:controller => "users", :action => "show"}) %> </li>
+        <li><%= link_to("accounts", {:controller => "accounts", :action => "index"})%></li>
+        <li><%= link_to("transactions", {:controller => "transactions", :action => "index"})%></li>
+        <li><%= link_to("add account", {:controller => "accounts", :action => "new"})%></li>
       </ul>
     </nav>
     <br />

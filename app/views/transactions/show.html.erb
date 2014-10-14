@@ -3,7 +3,7 @@
 <strong>id: </strong><%= @transaction.id %> <br />
 <strong>belongs to: </strong><%= !@transaction.account_id.blank? ? "Account id #{@transaction.account_id}" : "not available" %> <br />
 <strong>belongs to: </strong><%= !@transaction.user_id.blank? ? "User id #{@transaction.user_id}" : "not available" %> <br />
-<strong>cashflow: </strong>$<%= @transaction.cashFlow %> <br />
+<strong>cashflow: </strong><%= number_to_currency(@transaction.cashFlow) %> <br />
 <strong>note: </strong><%= @transaction.note %> <br />
 <strong>date: </strong><%= @transaction.created_at %> <br />
 
