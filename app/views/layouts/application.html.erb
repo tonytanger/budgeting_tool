@@ -1,48 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Budgeting Tool</title>
+    <title>Budgeting Tool - <%= @page_title %></title>
     <style type="text/css">
-    .has-notice {
-      background-color: yellow;
-    }
-    .has-success {
-      background-color: green;
-    }
-    .has-error {
-      background-color: red;
-    }
-    .current_user_account, .current_user_transaction {
-      background-color: rgb(100, 150, 100);
-    }
-    ul {
-      list-style: none;
-      line-height: 2em;
-    }
-    ul li {
-      float: left;
-      width: 200px;
-      border-left: 1px solid black;
-      text-align: center;
-    }
-    ul li:last-child {
-      border-right: 1px solid black;
-    }
-    ul li a:link {
-      text-decoration: none;
-      color: black;
-    }
-    ul li a:visited {
-      color: black;
-    }
+    
     </style>
-    <%= stylesheet_link_tag('application', :media => :all) %>
-    <%= javascript_include_tag('appliaction') %>
+    <%= stylesheet_link_tag 'application', :media => :all  %>
+    <%= 
+    #javascript_include_tag 'appliaction'  
+    %>
   </head>
   <body>
-    <div id="header">
-      <h1>Budgeting Tool</h1>
-    </div>
     <% if !flash[:notice].blank? %>
       <div class="has-notice">
         <%= flash[:notice] %>
@@ -56,21 +24,24 @@
         <%= flash[:error] %>
       </div>
     <% end %>
-    <nav>
+
+    <div class="main-header">
+      <h3>Budgeting Tool - <%= @page_title %></h3>
+    </div>
+    <nav class="navigation">
       <ul>
         <li><%= link_to("accounts", {:controller => :accounts, :action => :index})%></li>
         <li><%= link_to("transactions", {:controller => :transactions, :action => :index})%></li>
         <li><%= link_to("add account", {:controller => :accounts, :action => :new})%></li>
       </ul>
     </nav>
-    <br />
     <!-- Main Body -->
-    <div id="main">
+    <div class="main">
       <%= yield %>
     </div>
     <!-- End of Main Body -->
-    <div id="footer">
-      <p id="copyright">&copy; Budgeting Tool / Tony Tang</p>
+    <div class="footer">
+      <p class="copyright">&copy; Budgeting Tool / Tony Tang</p>
     </div>
   </body>
 </html>
