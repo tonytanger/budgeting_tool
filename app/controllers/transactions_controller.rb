@@ -61,7 +61,7 @@ class TransactionsController < ApplicationController
 
     def transaction_params
       # TODO: restirct account_id param field by form
-      params.require(:transaction).permit(:account_id, :cashFlow, :note)
+      params.require(:transaction).permit(:account_id, :cash_flow, :note, :receiptDate)
     end
 
     def checkUserStatus

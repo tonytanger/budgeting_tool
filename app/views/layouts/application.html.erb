@@ -5,10 +5,9 @@
     <style type="text/css">
     
     </style>
-    <%= stylesheet_link_tag 'application', :media => :all  %>
-    <%= 
-    #javascript_include_tag 'appliaction'  
-    %>
+    <%= stylesheet_link_tag('application', :media => :all) %>
+    <%= javascript_include_tag('application') %>
+    <%= csrf_meta_tag %>
   </head>
   <body>
     <% if !flash[:notice].blank? %>
@@ -30,9 +29,10 @@
     </div>
     <nav class="navigation">
       <ul>
-        <li><%= link_to("accounts", {:controller => :accounts, :action => :index})%></li>
-        <li><%= link_to("transactions", {:controller => :transactions, :action => :index})%></li>
-        <li><%= link_to("add account", {:controller => :accounts, :action => :new})%></li>
+        <li><%= link_to("user", {:controller => "users", :action => "show"}) %> </li>
+        <li><%= link_to("accounts", {:controller => "accounts", :action => "index"})%></li>
+        <li><%= link_to("transactions", {:controller => "transactions", :action => "index"})%></li>
+        <li><%= link_to("add account", {:controller => "accounts", :action => "new"})%></li>
       </ul>
     </nav>
     <!-- Main Body -->
