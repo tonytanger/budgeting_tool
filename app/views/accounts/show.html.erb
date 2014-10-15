@@ -3,7 +3,7 @@
 <strong>id: </strong><%= @account.id %> <br />
 <strong>belongs to: </strong> <%= !@account.user_id.blank? ? "User ##{@account.user_id}" : "not available" %> <br />
 <strong>balance: </strong><%= @account.balance %> <br />
-<strong>account number:</strong> <%= @account.accountNumber %> <br />
+<strong>account number:</strong> <%= @account.account_number %> <br />
 <strong>description:</strong> <%= @account.description %> <br />
 
 <% @transactions.each do |transaction| %>

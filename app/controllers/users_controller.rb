@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   # display edit User
   def edit
     checkUserStatus
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(session[:current_user_id])
   end
 
   # update User
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
     # this requires user to be instantiated
     # this also allows the fields to be mass assigned
     def user_params
-      params.require(:user).permit(:username, :password, :email, :firstName, :lastName)
+      params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
     end
 
     def checkUserStatus

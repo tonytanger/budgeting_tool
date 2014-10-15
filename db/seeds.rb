@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.create(username: "test1", password: "test123", email: "abc@abc", first_name: "john", last_name: "doe")
+User.create(username: "test2", password: "test123", email: "abc@abc", first_name: "john", last_name: "doe")
+User.create(username: "test3", password: "test123", email: "abc@abc", first_name: "john", last_name: "doe")
+
+Account.create(user_id: 1, name: "account1", balance: 500, account_number: "123456", description: "hello world")
+Account.create(user_id: 1, name: "account2", balance: 300, account_number: "123456", description: "hello world")
+Account.create(user_id: 2, name: "account3", balance: 1240, account_number: "123456", description: "hello world")
+
+Transaction.create(account_id: 1, cash_flow: 500, note: "hello world")
+Transaction.create(account_id: 1, cash_flow: 100, note: "hello world")
+Transaction.create(account_id: 2, cash_flow: -200, note: "hello world")

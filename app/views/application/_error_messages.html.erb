@@ -1,0 +1,12 @@
+<% if object && object.errors.size > 0 %>
+  <strong> There 
+    <%= object.errors.size == 1 ? "is" : "are" %>
+    <%= pluralize(object.errors.size, "error") %>
+   with the form 
+ </strong>
+  <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>

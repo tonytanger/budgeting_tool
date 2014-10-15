@@ -15,29 +15,30 @@
     .current_user_account, .current_user_transaction {
       background-color: rgb(100, 150, 100);
     }
-    ul {
+    nav > ul {
       list-style: none;
       line-height: 2em;
     }
-    ul li {
+    nav > ul li {
       float: left;
       width: 200px;
       border-left: 1px solid black;
       text-align: center;
     }
-    ul li:last-child {
+    nav > ul li:last-child {
       border-right: 1px solid black;
     }
-    ul li a:link {
+    nav > ul li a:link {
       text-decoration: none;
       color: black;
     }
-    ul li a:visited {
+    nav > ul li a:visited {
       color: black;
     }
     </style>
     <%= stylesheet_link_tag('application', :media => :all) %>
-    <%= javascript_include_tag('appliaction') %>
+    <%= javascript_include_tag('application') %>
+    <%= csrf_meta_tag %>
   </head>
   <body>
     <div id="header">
@@ -58,9 +59,10 @@
     <% end %>
     <nav>
       <ul>
-        <li><%= link_to("accounts", {:controller => :accounts, :action => :index})%></li>
-        <li><%= link_to("transactions", {:controller => :transactions, :action => :index})%></li>
-        <li><%= link_to("add account", {:controller => :accounts, :action => :new})%></li>
+        <li><%= link_to("user", {:controller => "users", :action => "show"}) %> </li>
+        <li><%= link_to("accounts", {:controller => "accounts", :action => "index"})%></li>
+        <li><%= link_to("transactions", {:controller => "transactions", :action => "index"})%></li>
+        <li><%= link_to("add account", {:controller => "accounts", :action => "new"})%></li>
       </ul>
     </nav>
     <br />
