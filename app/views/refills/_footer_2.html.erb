@@ -1,0 +1,24 @@
+<footer class="footer-2">
+  <div class="footer-logo">
+    <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png" alt="Logo image">
+  </div>
+  <ul>
+    <li><%= link_to("Accounts", {:controller => "accounts", :action => "index"})%></li>
+    <li><%= link_to("Transactions", {:controller => "transactions", :action => "index"})%></li>
+    <li>
+      <% if (session[:current_user_id]) %>
+        <%= link_to("Profile", {:controller => "users", :action => "edit"}, :class => "profile" ) %>
+      <% else %>
+        <%= link_to("Sign Up Now!", {:controller => "users", :action => "new"}, :class => "sign-up" ) %>
+      <% end %>
+    </li>
+  </ul>
+
+  <div class="footer-secondary-links">
+    <ul class="footer-social">
+      <li><span class="footer-social-pill"><a href="http://github.com/nflavour">G</a></span></li>
+      <li><span class="footer-social-pill"><a href="http://twitter.com/tonytanger">T</a></span></li>
+      <li><span class="footer-social-pill"><a href="http://youtube.com/nflavour">Y</a></span></li>
+    </ul>
+  </div>
+</footer>

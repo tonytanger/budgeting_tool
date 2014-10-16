@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Budgeting Tool - <%= @page_title %></title>
-    <style type="text/css">
-    
-    </style>
-    <%= stylesheet_link_tag('application', :media => :all) %>
-    <%= javascript_include_tag('application') %>
-    <%= csrf_meta_tag %>
-  </head>
-  <body>
+<head>
+  <title>Budgeting Tool - <%= @page_title %></title>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
     <% if !flash[:notice].blank? %>
       <div class="has-notice">
         <%= flash[:notice] %>
@@ -23,25 +20,15 @@
         <%= flash[:error] %>
       </div>
     <% end %>
-
-    <div class="main-header">
-      <h3>Budgeting Tool - <%= @page_title %></h3>
-    </div>
-    <nav class="navigation">
-      <ul>
-        <li><%= link_to("user", {:controller => "users", :action => "show"}) %> </li>
-        <li><%= link_to("accounts", {:controller => "accounts", :action => "index"})%></li>
-        <li><%= link_to("transactions", {:controller => "transactions", :action => "index"})%></li>
-        <li><%= link_to("add account", {:controller => "accounts", :action => "new"})%></li>
-      </ul>
-    </nav>
+    <%= render(:partial => "refills/navigation") %>
+    <span class="badge"></span>
     <!-- Main Body -->
-    <div class="main">
+    <div class="main wrapper-for-content-outside-of-footer">
       <%= yield %>
+      <div class="push"></div>
     </div>
     <!-- End of Main Body -->
-    <div class="footer">
-      <p class="copyright">&copy; Budgeting Tool / Tony Tang</p>
-    </div>
-  </body>
+    <%= render(:partial => "refills/footer_2") %>
+  </div>
+</body>
 </html>

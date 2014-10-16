@@ -1,15 +1,21 @@
+<article class="sign-in">
 <% @page_title = "Sign In" %>
 
-<%= form_for(:user, :url => {:action => "index"}) do |f| %>
+<%= form_for(:user, :url => {:action => "index"}, :html => {:class => "sign-in-form"}) do |f| %>
 
-  <label for="user_username">Username </label>
-  <%= f.text_field(:username) %><br />
+  <%= f.label(:username) %>
+  <%= f.text_field(:username) %>
 
-  <label for="user_password">Password</label>
-  <%= f.text_field(:password, :type => 'password') %><br />
+  <%= f.label(:password) %>
+  <%= f.password_field(:password) %>
   
-  <%= submit_tag("Sign In") %>
-
+  <div class="button-group">
+    <div class="sign-in-button">
+    <%= submit_tag("Sign In") %>
+    </div>
+    <div class="sign-up-button">
+      <%= link_to("Sign up", {:action => "new"} ) %>
+    </div>
+  </div>
 <% end %>
-
-<%= link_to("Sign up", {:action => "new"} ) %>
+</article>

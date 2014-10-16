@@ -1,0 +1,42 @@
+
+@import "refills/badges";
+html, body {
+  font: $font-color;
+  height: 100%;
+}
+
+/**
+ * Top Title Bar
+ */
+.main-header {
+  @include size(100% 50px);
+  @include background( radial-gradient(tint(green, 70%), tint($money-green, 40%)) left repeat);
+  text-align: center;
+  .heading {
+    padding: 6px 0;
+  }
+}
+
+
+/**
+ * Navigation
+ */
+@import "refills/navigation";
+.logo {
+  font-weight: 700;
+}
+
+/**
+ * main
+ */
+.main {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+}
+
+/**
+ * Footer
+ */
+@import "refills/footer_2";

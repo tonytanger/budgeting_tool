@@ -95,15 +95,13 @@ class UsersController < ApplicationController
     user = User.find_by_id(params[:id]).destroy
     flash[:notice] = "User '#{user.username}' deleted successfully!"
     redirect_to( :action => "index")
-    return
   end
 
   def sign_out
     checkUserStatus
     session[:current_user_id] = nil
     flash[:success] = "Successfully Signed out"
-    redirect_to( :action => "index")
-    return
+    redirect_to(:action => "index")
   end
 
   private

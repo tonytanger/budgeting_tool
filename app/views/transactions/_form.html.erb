@@ -1,12 +1,11 @@
 <%= f.label(:cash_flow) %>
-<%= f.text_field(:cash_flow) %><br />
+<%= f.text_field(:cash_flow) %>
 
 <%= f.label(:note) %>
-<%= f.text_field(:note) %><br />
+<%= f.text_field(:note) %>
 
 <%= f.label(:receipt_date) %>
 <%= f.datetime_select(:receipt_date, {:start_year => Time.now.year - 5, :end_year => Time.now.year, :order => [:month, :day, :year], :ampm => true })
 %>
-<br />
 
 <%= f.hidden_field(:account_id) %>
