@@ -4,6 +4,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.integer :account_id, :null => false
       t.index :account_id
       t.decimal :cash_flow, :precision => 20, :scale => 4, :default => 0
+      t.datetime :receipt_date
       t.text :note
 
       t.timestamps

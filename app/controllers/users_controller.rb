@@ -1,26 +1,22 @@
 class UsersController < ApplicationController
 
-  # display all User
+  # log in user
   def index
-    # OLD:
-    # @users = User.sorted
-    # 
-    
     # FEATURE: add "remember me" check
     if !session[:current_user_id]
       # not logged in
       puts "Not Logged In!"
       if params.has_key?(:user) and params.has_key?(:commit)
-        @user = User.find_by_username(params[:user][:username])
+        @user = User.find_by_email(params[:user][:email])
         if !params[:user][:password].blank? and @user and @user.password == params[:user][:password]
-          # username/password combo found
+          # email/password combo found
           session[:current_user_id] = @user.id
           flash[:success] = "Signed In Successfully."
           redirect_to(:action => "show")
           return
         else
-          # username/password combo not found
-          flash[:notice] = "Username/Password Combo Not Valid. Please try again!"
+          # email/password combo not found
+          flash[:notice] = "email/Password Combo Not Valid. Please try again!"
         end
       else
         @user = User.new 
@@ -33,6 +29,39 @@ class UsersController < ApplicationController
       return
     end
 
+  end
+
+  def sign_in
+
+  end
+
+  # attempt to sing in user, if successful redirect, if not redirect to sign in page
+  def attemptSignin
+    # did the user fill in the email and password form field?
+    if params[:user][:email].present? and params[:user][:password].present?
+      found_user = User.where(:email => params[:user][:password]).limit(1)
+      if found_user
+        authorized_user = found_user.authenticate(params[:user][:password])
+      end
+    end
+    if authorized_user
+      session[:current_user_id] = authorized_user.id
+      session[:current_user_email] = authorized_user.email
+      flash[:success] = "Successfully Signed In".
+      redirect_to(:controller => "accounts", :action => "index")
+    else
+      flash[:error] = "Invalid email/password combination."
+      redirect_to(:action => "sign_in")
+    end
+  end
+
+  # sign out user, destroy user session
+  def sign_out
+    session[:current_user_id] = nil
+    session[:current_user_email] = nil
+    flash[:success] = "Successfully Signed out"
+    # should redirect to "Home Page", currently user#index
+    redirect_to(:controller => "use", :action => "index")
   end
 
   # display single User
@@ -61,7 +90,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:notice] = "User '#{@user.username}' created successfully!"
+      flash[:notice] = "User '#{@user.email}' created successfully!"
       redirect_to( :action => :index )
       return
     else
@@ -81,7 +110,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
 
     if @user.update_attributes(user_params)
-      flash[:notice] = "User '#{@user.username}' updated successfully!"
+      flash[:notice] = "User '#{@user.email}' updated successfully!"
       redirect_to( :action => 'show', :id => @user.id )
       return
     else
@@ -93,23 +122,17 @@ class UsersController < ApplicationController
   def destroy
     checkUserStatus
     user = User.find_by_id(params[:id]).destroy
-    flash[:notice] = "User '#{user.username}' deleted successfully!"
+    flash[:notice] = "User '#{user.email}' deleted successfully!"
     redirect_to( :action => "index")
   end
 
-  def sign_out
-    checkUserStatus
-    session[:current_user_id] = nil
-    flash[:success] = "Successfully Signed out"
-    redirect_to(:action => "index")
-  end
 
   private
 
     # this requires user to be instantiated
     # this also allows the fields to be mass assigned
     def user_params
-      params.require(:user).permit(:username, :password, :email, :first_name, :last_name)
+      params.require(:user).permit(:email, :password, :email, :first_name, :last_name)
     end
 
     def checkUserStatus

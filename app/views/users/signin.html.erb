@@ -1,7 +1,7 @@
 <article class="sign-in">
 <% @page_title = "Sign In" %>
 
-<%= form_for(:user, :url => {:action => "index"}, :html => {:class => "sign-in-form"}) do |f| %>
+<%= form_for(:user, :url => {:action => "attemptSignin"}, :html => {:class => "sign-in-form"}) do |f| %>
 
   <%= f.label(:username) %>
   <%= f.text_field(:username) %>
