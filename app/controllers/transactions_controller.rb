@@ -16,7 +16,7 @@ class TransactionsController < ApplicationController
       @transaction.account_id = params[:account_id]
     else
       flash[:error] = "Missing account id, please try again!"
-      redirect_to(:controller => :accounts, :action => :index)
+      redirect_to(controller: "accounts", action: "index")
     end
   end
 
@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
 
     if @transaction.save
       flash[:success] = "transaction ##{@transaction.id} created successfully."
-      redirect_to( :action => "index" )
+      redirect_to( action: "index" )
     else
       render("new")
     end
@@ -40,7 +40,7 @@ class TransactionsController < ApplicationController
     # BUG: check transaction.account_id.user_id is current_user_id
     if @transaction.update_attributes(transaction_params)
       flash[:success] = "transaction ##{@transaction.id} updated successfully."
-      redirect_to( :action => "show", :id => @transaction.id )
+      redirect_to( action: "show", id: @transaction.id )
     else
       render("new")
     end
@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
   def destroy
     transaction = Transaction.find_by_id(params[:id]).destroy
     flash[:success] = "transaction ##{transaction.id} deleted successfully."
-    redirect_to( :action => "index" )
+    redirect_to( action: "index" )
   end
 
   private

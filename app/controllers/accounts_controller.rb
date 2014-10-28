@@ -9,14 +9,13 @@ class AccountsController < ApplicationController
   def show
     if params.has_key?(:id)
       @account = Account.find_by_id(params[:id])
-      @user = User.find_by_id(session[:current_user_id])
-      if @account.user_id != @user.id
+      if @account.user_id != session[:current_user_id]
         # user try to access an account that doesn't belong to them
-        redirect_to(:controller => :users, :action => :sign_out)
+        redirect_to(controller: :users, action: :sign_out)
       end
-      @transactions = Transaction.where(account_id: "#{@account.id}")
+      @transactions = @account.transactions
     else 
-      @account = Account.new
+      redirect_to(action: "index")
     end
   end
 
@@ -30,7 +29,7 @@ class AccountsController < ApplicationController
 
     if @account.save
       flash[:notice] = "Account #{@account.name} created successfully."
-      redirect_to( :action => "index" )
+      redirect_to( action: "index" )
     else
       render("new")
     end
@@ -44,7 +43,7 @@ class AccountsController < ApplicationController
     @account = Account.find_by_id(params[:id])
     if @account.update_attributes(account_params)
       flash[:notice] = "Account #{@account.name} updated successfully."
-      redirect_to( :action => "show", :id => @account.id )
+      redirect_to( action: "show", id: @account.id )
     else
       render("new")
     end
@@ -53,7 +52,7 @@ class AccountsController < ApplicationController
   def destroy
     account = Account.find_by_id(params[:id]).destroy
     flash[:notice] = "Account #{account.name} deleted successfully."
-    redirect_to( :action => "index" )
+    redirect_to( action: "index" )
   end
 
   private 
