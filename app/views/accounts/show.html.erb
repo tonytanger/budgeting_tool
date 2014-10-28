@@ -1,4 +1,4 @@
-<h1><%= @account.name %></h1>
+<%= @page_title = "Account" %>
 
 <strong>id: </strong><%= @account.id %> <br />
 <strong>belongs to: </strong> <%= !@account.user_id.blank? ? "User ##{@account.user_id}" : "not available" %> <br />
@@ -7,10 +7,10 @@
 <strong>description:</strong> <%= @account.description %> <br />
 
 <% @transactions.each do |transaction| %>
-  <%= link_to("Transaction: #{transaction.id}", {:controller => "transactions", :action => "show", :id => transaction.id}) %><br />
+  <%= link_to("Transaction: #{transaction.id}", {controller: "transactions", action: "show", id: transaction.id}) %><br />
 <% end %>
 <br />
-<%= link_to("Add Transaction", {:controller => "transactions", :action => "new", :account_id => @account.id }) %>
+<%= link_to("Add Transaction", {controller: "transactions", action: "new", account_id: @account.id }) %>
 <br />
 
-<%= link_to "Back to Index", {:action => "index"} %>
+<%= link_to "Back to Index", {action: "index"} %>

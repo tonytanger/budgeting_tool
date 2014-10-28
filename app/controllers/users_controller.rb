@@ -1,57 +1,34 @@
 class UsersController < ApplicationController
 
-  # log in user
-  def index
-    # FEATURE: add "remember me" check
-    if !session[:current_user_id]
-      # not logged in
-      puts "Not Logged In!"
-      if params.has_key?(:user) and params.has_key?(:commit)
-        @user = User.find_by_email(params[:user][:email])
-        if !params[:user][:password].blank? and @user and @user.password == params[:user][:password]
-          # email/password combo found
-          session[:current_user_id] = @user.id
-          flash[:success] = "Signed In Successfully."
-          redirect_to(:action => "show")
-          return
-        else
-          # email/password combo not found
-          flash[:notice] = "email/Password Combo Not Valid. Please try again!"
-        end
-      else
-        @user = User.new 
-      end
-    else
-      # logged in
-      puts "Session: #{session[:current_user_id]}"
-      @user = User.find_by_id(session[:current_user_id])
-      redirect_to(:action => "show")
-      return
-    end
+  before_action :confirmed_signed_in, except: [:sign_in, :attempt_sign_in, :sign_out, :new, :create]
+  before_action :already_signed_in, only: [:sign_in, :attempt_sign_in, :new, :create]
 
-  end
-
+  # Sign In Page
+  # /users/signin
   def sign_in
-
+    render("signin")
   end
 
   # attempt to sing in user, if successful redirect, if not redirect to sign in page
-  def attemptSignin
+  def attempt_sign_in
     # did the user fill in the email and password form field?
-    if params[:user][:email].present? and params[:user][:password].present?
-      found_user = User.where(:email => params[:user][:password]).limit(1)
+    if params[:email].present? and params[:password].present?
+      found_user = User.where(email: params[:email]).first
+      # does the email exist in the database?
       if found_user
-        authorized_user = found_user.authenticate(params[:user][:password])
+        authorized_user = found_user.authenticate(params[:password])
       end
     end
+    # does found_user has the correct password?
     if authorized_user
       session[:current_user_id] = authorized_user.id
       session[:current_user_email] = authorized_user.email
-      flash[:success] = "Successfully Signed In".
-      redirect_to(:controller => "accounts", :action => "index")
+      flash[:success] = "Successfully Signed In."
+      redirect_to(controller: "accounts", action: "index")
     else
+      # invalid email/password combination
       flash[:error] = "Invalid email/password combination."
-      redirect_to(:action => "sign_in")
+      redirect_to(action: "sign_in")
     end
   end
 
@@ -61,18 +38,18 @@ class UsersController < ApplicationController
     session[:current_user_email] = nil
     flash[:success] = "Successfully Signed out"
     # should redirect to "Home Page", currently user#index
-    redirect_to(:controller => "use", :action => "index")
+    redirect_to(controller: "users", action: "index")
   end
 
   # display single User
+  # /users/show/:id
   def show
-    checkUserStatus
     if session[:current_user_id]
       @user = User.find_by_id(session[:current_user_id]) # what is find_by_id returns nil?
       if @user
         @accounts = Account.where(user_id: "#{@user.id}")
       else
-        redirect_to(:action => :sign_out)
+        redirect_to(action: :sign_out)
         return
       end
     else
@@ -81,6 +58,7 @@ class UsersController < ApplicationController
   end
 
   # display new User
+  # /users/new
   def new
     @user = User.new()
   end
@@ -91,7 +69,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "User '#{@user.email}' created successfully!"
-      redirect_to( :action => :index )
+      redirect_to( action: :index )
       return
     else
       render('new')
@@ -99,19 +77,18 @@ class UsersController < ApplicationController
   end
 
   # display edit User
+  # /users/edit/:id
   def edit
-    checkUserStatus
     @user = User.find_by_id(session[:current_user_id])
   end
 
   # update User
   def update
-    checkUserStatus
     @user = User.find_by_id(params[:id])
 
     if @user.update_attributes(user_params)
       flash[:notice] = "User '#{@user.email}' updated successfully!"
-      redirect_to( :action => 'show', :id => @user.id )
+      redirect_to( action: 'show', id: @user.id )
       return
     else
       render('edit')
@@ -120,10 +97,9 @@ class UsersController < ApplicationController
 
   # destry User
   def destroy
-    checkUserStatus
     user = User.find_by_id(params[:id]).destroy
     flash[:notice] = "User '#{user.email}' deleted successfully!"
-    redirect_to( :action => "index")
+    redirect_to( action: "index")
   end
 
 
@@ -135,10 +111,12 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :email, :first_name, :last_name)
     end
 
-    def checkUserStatus
-      if !session[:current_user_id]
-        redirect_to(:controller => "users", :action => "index")
-        return
+    def already_signed_in
+      if session[:current_user_id]
+        redirect_to(controller: "users", action: "show")
+        return false
+      else
+        return true
       end
     end
 end
