@@ -1,8 +1,8 @@
-<h1> Create Transaction </h1>
+<% @page_title = "New Transaction" %>
 
-<%= form_for(:transaction, :url => {:action => 'create'}) do |f| %>
+<%= form_for(:transaction, url: {action: 'create'}) do |f| %>
 
-  <%= render(:partial => "form", :locals => {:f => f}) %>
+  <%= render(partial: "form", locals: {f: f}) %>
 
   <%= submit_tag("Create Transaction") %>
 

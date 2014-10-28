@@ -1,3 +1,4 @@
+<% @page_title = "Transactions" %>
 <table border="1px">
   <tr>
     <th>id</th>
@@ -14,7 +15,7 @@
       <% end %>
     >
         <td>
-          <%= link_to(:action => "show", :id => transaction.id) do %>
+          <%= link_to(action: "show", id: transaction.id) do %>
             <%= transaction.id %>
           <% end %>
         </td>
@@ -24,9 +25,9 @@
         <td><%= transaction.receipt_date.blank? ? "" : transaction.receipt_date.to_formatted_s(:transaction) %></td>
         <td>
 
-          <%= link_to "show", {:action => "show", :id => transaction.id} %>
-          <%= link_to "edit", {:action => "edit", :id => transaction.id} %>
-          <%= link_to "delete", {:action => "destroy", :id => transaction.id} %>
+          <%= link_to "show", {action: "show", id: transaction.id} %>
+          <%= link_to "edit", {action: "edit", id: transaction.id} %>
+          <%= link_to "delete", {action: "destroy", id: transaction.id} %>
         </td>
     </tr>
   <% end %>

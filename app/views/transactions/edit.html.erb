@@ -1,8 +1,8 @@
-<h1> Update Transaction </h1>
+<% @page_title = "Edit Transaction" %>
 
-<%= form_for(:transaction, :url => {:action => 'update', :id => @transaction.id}) do |f| %>
+<%= form_for(:transaction, url: {action: 'update', id: @transaction.id}) do |f| %>
 
-  <%= render(:partial => "form", :locals => {:f => f}) %>
+  <%= render(partial: "form", locals: {f: f}) %>
 
   <%= submit_tag("Update Transaction") %>
 
