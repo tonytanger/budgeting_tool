@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20141028010810) do
     t.string "description"
   end
 
+  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
+
   create_table "transactions", force: true do |t|
     t.integer  "account_id",                                          null: false
     t.decimal  "cash_flow",    precision: 20, scale: 4, default: 0.0
