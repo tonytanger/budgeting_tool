@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
         return true
       end
     end
+
+    def confirm_id()
+      unless params[:id]
+        redirect_to(action: "index")
+        return false
+      else
+        return true
+      end
+    end
 end

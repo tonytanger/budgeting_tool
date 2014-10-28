@@ -1,6 +1,6 @@
 <% @page_title = "Edit Transaction" %>
 
-<%= form_for(:transaction, url: {action: 'update', id: @transaction.id}) do |f| %>
+<%= form_for(:transaction, url: {action: 'update', id: @transaction.id}, html: {class: "transaction-form"}) do |f| %>
 
   <%= render(partial: "form", locals: {f: f}) %>
 

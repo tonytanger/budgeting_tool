@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
 
   before_action :confirmed_signed_in
+  before_action :confirm_id, only: [:show, :edit, :update, :destroy]
 
   def index
     @accounts = Account.sorted

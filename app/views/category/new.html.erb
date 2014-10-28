@@ -1,0 +1,9 @@
+<% @page_title = "New Category" %>
+
+<%= form_for(:category, url: {action: "create", id: @category.id}) do |f| %>
+  
+  <%= render partial: "form", locals: {f: f} %>
+
+  <%= submit_tag("Create Category") %>
+
+<% end %>

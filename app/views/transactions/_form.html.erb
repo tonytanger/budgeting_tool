@@ -4,8 +4,10 @@
 <%= f.label(:note) %>
 <%= f.text_field(:note) %>
 
+<%= f.label(:category_id, "Category") %>
+<%= f.select(:category_id, @categories.map {|c| [c.name, c.id]}, include_blank: true) %>
+
 <%= f.label(:receipt_date) %>
 <%= f.datetime_select(:receipt_date, {:start_year => Time.now.year - 5, :end_year => Time.now.year, :order => [:month, :day, :year], :ampm => true })
 %>
-
-<%= f.hidden_field(:account_id) %>
+<br />

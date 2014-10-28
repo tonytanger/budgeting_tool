@@ -1,0 +1,9 @@
+<% @page_title = "Edit Category" %>
+
+<%= form_for(:category, url: {action: "update", id: @category.id}) do |f| %>
+  
+  <%= render partial: "form", locals: {f: f} %>
+
+  <%= submit_tag("Update Category") %>
+
+<% end %>
