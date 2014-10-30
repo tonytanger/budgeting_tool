@@ -1,4 +1,4 @@
-class CategoryController < ApplicationController
+class CategoriesController < ApplicationController
 
   before_action :confirmed_signed_in
   before_action :confirm_id, only: [:show, :edit, :update, :destroy]
