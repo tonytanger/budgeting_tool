@@ -15,23 +15,23 @@
       class="current_user_account"
     <% end %>
     >
-        <td>
-          <%= link_to(action: "show", id: account.id) do %>
-            <%= account.id %>
-          <% end %>
-        </td>
-        <td><%= account.user_id %></td>
-        <td><%= account.name %></td>
-        <td>$<%= account.balance %></td>
-        <td><%= account.account_number %></td>
-        <td><%= account.description %></td>
-        <td>
+      <td>
+        <%= link_to(action: "show", id: account.id) do %>
+          <%= account.id %>
+        <% end %>
+      </td>
+      <td><%= account.user_id %></td>
+      <td><%= account.name %></td>
+      <td>$<%= account.balance %></td>
+      <td><%= account.account_number %></td>
+      <td><%= account.description %></td>
+      <td>
 
-          <%= link_to "add transaction", {controller: "transactions", action: "new", account_id: account.id} %>
-          <%= link_to "show", {action: "show", id: account.id} %>
-          <%= link_to "edit", {action: "edit", id: account.id} %>
-          <%= link_to "delete", {action: "destroy", id: account.id} %>
-        </td>
+        <%= link_to "add transaction", {controller: "transactions", action: "new", account_id: account.id} %>
+        <%= link_to "show", {action: "show", id: account.id} %>
+        <%= link_to "edit", {action: "edit", id: account.id} %>
+        <%= link_to "delete", {action: "destroy", id: account.id} %>
+      </td>
     </tr>
   <% end %>
 </table>

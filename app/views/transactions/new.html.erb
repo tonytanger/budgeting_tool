@@ -1,9 +1,11 @@
 <% @page_title = "New Transaction" %>
 
-<%= form_for(:transaction, url: {action: 'create'}) do |f| %>
+<%= form_for(:transaction, url: {action: 'create'}, html: {class: "transaction-form"}) do |f| %>
 
   <%= render(partial: "form", locals: {f: f}) %>
 
+  <%= f.hidden_field(:account_id) %>
+  
   <%= submit_tag("Create Transaction") %>
 
 <% end %>
