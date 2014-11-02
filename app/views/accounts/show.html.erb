@@ -5,10 +5,10 @@
   </div>
   <div class="button-group">
     <div class="edit-account">
-      <%= link_to("Edit", {action: "edit", id: @account.id }, class: "btn-small") %>
+      <%= link_to("Edit", {action: "edit", id: @account.id }, class: "btn") %>
     </div>
     <div class="add-transaction-wrapper">
-      <%= link_to("Add Transaction", {controller: "transactions", action: "new", account_id: @account.id }, class: "btn-small") %>
+      <%= link_to("Add Transaction", {controller: "transactions", action: "new", account_id: @account.id }, class: "btn") %>
     </div>
   </div>
 </div>

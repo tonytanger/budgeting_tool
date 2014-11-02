@@ -22,8 +22,6 @@
   .breadcrumb {
     a {
       float: left;
-      padding: 0.75em 0;
-      font-size: 0.9em;
       vertical-align: center;
     }
     @include span-columns(3);

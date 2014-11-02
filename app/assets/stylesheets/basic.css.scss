@@ -74,21 +74,28 @@ textarea {
  * Panel
  */
 .panel {
-  border: 1px solid $grey;
   margin: 10px 0;
-  @include border-top-radius(5px);
+  border-bottom: 1px solid $grey;
   .panel-heading {
+  @include border-top-radius(5px);
     font-size: 1.1em;
     font-weight: 700;
     padding: 3px 10px;
     color: $white;
     background-color: $rich-blue;
+    border: 1px solid $rich-blue;
+    margin: 0;
   }
   .panel-body {
+    margin: 0;
+    border-left: 1px solid $grey;
+    border-right:  1px solid $grey;
     padding: 5px 10px;
   }
   .panel-footer {
     padding: 3px 10px;
+    border-left: 1px solid $grey;
+    border-right:  1px solid $grey;
     background-color: lighten($rich-blue, 25);
   }
 }
