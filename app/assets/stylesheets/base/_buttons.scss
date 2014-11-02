@@ -1,5 +1,5 @@
 button,
-input[type="submit"] {
+input[type="submit"], .btn {
   @extend %button;
   @include appearance(none);
   border: none;
@@ -7,4 +7,16 @@ input[type="submit"] {
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.btn-small {
+  @extend %button;
+  @include appearance(none);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 0.9em;
+  font-weight: 400;
 }

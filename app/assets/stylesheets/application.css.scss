@@ -1,7 +1,9 @@
 @import "normalize-rails";
-@import "bourbon/bourbon";
+@import "bourbon";
+@import "base/grid-settings";
+@import "neat";
 @import "base/base";
-@import "neat/neat";
+@import "refills/type-system-rounded";
 @import "variables";
 @import "basic";
 @import "accounts";

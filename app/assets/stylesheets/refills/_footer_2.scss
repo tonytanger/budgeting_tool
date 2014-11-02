@@ -4,7 +4,7 @@
   @include calc(min-height, '100% - 60px - 200px');
 
   @include media($large-screen) {
-    @include calc(min-height, '100% - 60px - 4em');
+    min-height: 0px;
   }
 }
 

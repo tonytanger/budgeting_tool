@@ -59,11 +59,11 @@ class TransactionsController < ApplicationController
   private
 
   def create_params
-    params.require(:transaction).permit(:account_id, :category_id, :cash_flow, :note, :receipt_date)
+    params.require(:transaction).permit(:account_id, :category_id, :description, :cash_flow, :note, :receipt_date)
   end
 
   def update_params
-    params.require(:transaction).permit(:cash_flow, :category_id, :note, :receipt_date)
+    params.require(:transaction).permit(:category_id, :description, :note, :cash_flow, :receipt_date)
   end
 
   def confirmed_account_id

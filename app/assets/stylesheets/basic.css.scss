@@ -1,4 +1,3 @@
-
 @import "refills/badges";
 html, body {
   font: $font-color;
@@ -40,3 +39,56 @@ html, body {
  * Footer
  */
 @import "refills/footer_2";
+
+/**
+ * Error Explanation for forms
+ */
+.error_explanation {
+  border: 1px solid $light-red;
+  padding: 10px;
+  .error-title {
+    font-weight: 700;
+    color: $light-red;
+  }
+  .error-message {
+    list-style: disc;
+    list-style-position: inside;
+  }
+  margin-bottom: 10px;
+}
+
+.field_with_errors {
+  input {
+    border-color: $light-red;
+  }
+}
+
+/**
+ * textare no resize
+ */
+textarea {
+  resize: none;
+}
+
+/**
+ * Panel
+ */
+.panel {
+  border: 1px solid $grey;
+  margin: 10px 0;
+  @include border-top-radius(5px);
+  .panel-heading {
+    font-size: 1.1em;
+    font-weight: 700;
+    padding: 3px 10px;
+    color: $white;
+    background-color: $rich-blue;
+  }
+  .panel-body {
+    padding: 5px 10px;
+  }
+  .panel-footer {
+    padding: 3px 10px;
+    background-color: lighten($rich-blue, 25);
+  }
+}

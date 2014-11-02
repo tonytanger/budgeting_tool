@@ -5,39 +5,19 @@
     <% end %>
     <a href="" class="centered-navigation-menu-button">MENU</a>
     <ul class="centered-navigation-menu">
-      <li class="nav-link"><%= link_to("User", {:controller => "users", :action => "show"}) %></li>
       <li class="nav-link"><%= link_to("Accounts", {:controller => "accounts", :action => "index"})%></li>
-      <li class="nav-link"><%= link_to("Transactions", {:controller => "transactions", :action => "index"})%></li>
       <li class="nav-link logo">
         <%= link_to({:controller => "users", :action => "index"}, :class => "logo", :title => "Home") do%>
-          [[<%= @page_title %>]]
+          &lt;B&gt;
         <% end %>
       </li>
-      <li class="nav-link"><%= link_to("Add Account", {:controller => "accounts", :action => "new"})%></li>
       <li class="nav-link">
         <% if (session[:current_user_id]) %>
           <%= link_to("Profile", {:controller => "users", :action => "edit"}, :class => "profile" ) %>
         <% else %>
-          <%= link_to("Sign Up Now!", {:controller => "users", :action => "new"}, :class => "sign-up" ) %>
+          <%= link_to("Register", {:controller => "users", :action => "new"}, :class => "sign-up" ) %>
         <% end %>
       </li>
     </ul>
   </div>
 </header>
-
-<script>
-  $(document).ready(function() {
-    var menu = $('.centered-navigation-menu');
-    var menuToggle = $('.centered-navigation-menu-button');
-    var signUp = $('.sign-up');
-
-    $(menuToggle).on('click', function(e) {
-      e.preventDefault();
-      menu.slideToggle(function(){
-        if(menu.is(':hidden')) {
-          menu.removeAttr('style');
-        }
-      });
-    });
-  });
-</script>

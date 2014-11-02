@@ -1,6 +1,6 @@
 <% @page_title = "Edit Account" %>
 
-<%= form_for(:account, url: {action: "update", id: @account.id}) do |f| %>
+<%= form_for @account, url: {action: "update", id: @account.id} do |f| %>
 
   <%= render(partial: "form", locals: {f: f}) %>
 

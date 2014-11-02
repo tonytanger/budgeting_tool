@@ -5,7 +5,10 @@ $red: red;
 $light-green: rgba(28, 216, 99, 1);
 $grey: #AAA;
 $dark-grey: #333;
+$light-grey: #FFF;
 $white: white;
+$light-red: lighten($red, 25);
+$rich-blue: #477DCA;
 
 $line-height: 15px;
 $font-size: 12px;
