@@ -60,7 +60,6 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     @account.user_id = session[:current_user_id]
-    @account.banking_type = params[:account][:banking_type]
 
     if @account.save
       flash[:notice] = "Account #{@account.name} created successfully."
@@ -76,7 +75,6 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find_by_id(params[:id])
-    @account.banking_type = params[:account][:banking_type]
     
     if @account.update_attributes(account_params)
       flash[:notice] = "Account #{@account.name} updated successfully."
@@ -96,7 +94,7 @@ class AccountsController < ApplicationController
 
     def account_params
       # TODO: restirct user_id param field by form
-      params.require(:account).permit(:bank_name, :name, :user_id, :balance, :account_number, :description)
+      params.require(:account).permit(:bank_name, :name, :user_id, :balance, :account_number, :description, :banking_type)
     end
 
 end
