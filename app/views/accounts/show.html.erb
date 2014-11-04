@@ -17,7 +17,7 @@
 </div>
 <div class="panel">
   <div class="account-name panel-heading">
-    <%= @account.name %> - <%= @account.account_number %>
+    <%= @account.bank_name %>: <%= @account.name %> - <%= @account.account_number %>
   </div>
   <div class="account-info panel-body">
     <div class="account-balance<%= @account.balance < 0 ? " negative-balance" : "" %>">

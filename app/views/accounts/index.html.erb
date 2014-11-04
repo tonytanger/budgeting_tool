@@ -3,7 +3,10 @@
 <% last_banking_type = "" %>
 <% account_count = 0 %>
 <div class="account-heading">
-  <h2>Accounts Overview</h2>
+  <h2 class="page-heading">
+    Accounts Overview
+    <div class="total-balance">Total: <%= number_to_currency(@grand_total) %></div>
+  </h2>
 </div>
 <% @grouped_accounts.each do |group_name, accounts| %>
   <% unless accounts.empty? %>
@@ -13,19 +16,31 @@
       </div>
       <div class="panel-body">
         <table class="accounts-table">
-          <tr>
-            <th class="account-name">Name</th>
-            <th class="account-number">Account Number</th>
-            <th class="account-balance">Balance</th>
-          </tr>
-          <% accounts.each do |account| %>
+          <thead>
+            <tr>
+              <th class="account-name">Name</th>
+              <th class="account-number">Account Number</th>
+              <th class="account-balance">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% accounts.each do |account| %>
             <tr id="account-<%= account.id %>" >
-              <td class="account-name"><%= link_to( "#{account.name}", action: "show", id: account.id) %></td>
+              <td class="account-name">
+                <%= link_to( "#{account.bank_name} - #{account.name}", action: "show", id: account.id) %>
+              </td>
               <td class="account-number"><%= account.account_number %></td>
               <td class="account-balance<%= account.balance < 0 ? " negative-balance" : "" %>"><%= number_to_currency(account.balance.abs) %></td>
             </tr>
-          <% end %>
+            <% end %>
+          </tbody>
         </table>
+      </div>
+      <div class="panel-footer">
+        <div class="accounts-summary">
+          <div class="footer-heading">Total: </div>
+          <div class="footer-total"><%= number_to_currency(@grouped_total[group_name])%></div>
+        </div>
       </div>
     </div>
   <% end %>

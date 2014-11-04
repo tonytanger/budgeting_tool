@@ -11,17 +11,20 @@
   </div>
 <% end %>
 
-<%= f.label(:name) %>
-<%= f.text_field(:name) %>
+<%= f.label(:bank_name, "Bank Name") %>
+<%= f.text_field(:bank_name, placeholder: "name of the bank") %>
+
+<%= f.label(:name, "Account Name") %>
+<%= f.text_field(:name, placeholder: "name of the card") %>
 
 <%= f.label(:balance, "Balance ($)") %>
-<%= f.text_field(:balance) %>
+<%= f.text_field(:balance, placeholder: "current balance") %>
 
-<%= f.label(:account_number) %>
-<%= f.text_field(:account_number) %>
+<%= f.label(:account_number, "Account Number") %>
+<%= f.text_field(:account_number, placeholder: "account/card number") %>
 
-<%= f.label(:banking_type) %>
+<%= f.label(:banking_type, "Type") %>
 <%= f.select(:banking_type, Account.banking_types.map {|key, val| [key.titleize, key.downcase]}) %>
 
 <%= f.label(:description) %>
-<%= f.text_area(:description, size: "10x4") %>
+<%= f.text_area(:description, size: "10x4", placeholder: "optional") %>

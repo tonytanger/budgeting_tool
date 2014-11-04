@@ -3,7 +3,7 @@ class Account < ActiveRecord::Base
   belongs_to :user
   has_many :transactions
 
-  enum banking_type: [:chequing, :saving, :credit]
+  enum banking_type: [:chequing, :savings, :credit]
 
   validates :user_id, presence:true, numericality:{ only_integer: true }
 
@@ -11,6 +11,8 @@ class Account < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 255 }
   
+  validates :bank_name, presence: true, length: { maximum: 255 }
+
   validates :balance, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   scope :sorted, lambda { Account.sorted_by_id }

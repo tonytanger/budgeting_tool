@@ -4,21 +4,37 @@ class AccountsController < ApplicationController
   before_action :confirm_id, only: [:show, :edit, :update, :destroy]
 
   def index
+    
+    # find all the accounts belong to the user
+    accounts = User.find(session[:current_user_id]).accounts.sorted_by_banking_type
+
     # create an array to place grouped accounts using an array of array of Account
     # array of Account is an associated array by the banking type
     @grouped_accounts = Hash.new
+    
+    # do the same, but keeping track of the total
+    @grouped_total = Hash.new
+    
+    # for each banking_type add a new key to @grouped_accounts and @grouped_total creating a new empty array
     Account.banking_types.each { |key, value|
       @grouped_accounts[key] = Array.new
+      @grouped_total[key] = 0
     }
-    accounts = User.find(session[:current_user_id]).accounts.sorted_by_banking_type
+    
+    # for each account, sort them according to their banking_type
+    # insert into @grouped_accounts indexed by banking_type
     accounts.each do |account|
       @grouped_accounts[account.banking_type] << account
+      @grouped_total[account.banking_type] += account.balance
     end
-    @grouped_accounts.each do |account, val|
-      puts "Key: " + account.inspect
-      puts "Val: " + val.inspect
-      val.each do |a|
-        puts a.inspect
+
+    # calculate grand total
+    @grand_total = 0
+    @grouped_total.each do |group_name, subtotal|
+      if group_name == "credit"
+        @grand_total -= subtotal
+      else
+        @grand_total += subtotal
       end
     end
   end
@@ -80,7 +96,7 @@ class AccountsController < ApplicationController
 
     def account_params
       # TODO: restirct user_id param field by form
-      params.require(:account).permit(:name, :user_id, :balance, :account_number, :description)
+      params.require(:account).permit(:bank_name, :name, :user_id, :balance, :account_number, :description)
     end
 
 end

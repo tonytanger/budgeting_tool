@@ -116,7 +116,20 @@
     width: 20%;
     text-align: right;
   }
+}
 
+.accounts-summary {
+  font-weight: 700;
+  .footer-heading {
+    width: 70%;
+    display: inline-block;
+  }
+  .footer-total {
+    width: 20%;
+    text-align: right;
+    display: inline-block;
+    float: right;
+  }
 }
 
 .bottom-action-bar {
@@ -129,3 +142,17 @@
     }
   }
 }
+
+.account-heading {
+  .page-heading {
+    display: block;
+    .total-balance {
+      display: inline-block;
+      float: right;
+      font-weight: 400;
+      padding-top: 1.25em;
+      font-size: 0.5em;
+    }
+  }
+}
+
