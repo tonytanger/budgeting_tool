@@ -8,21 +8,21 @@ class AccountsController < ApplicationController
     # find all the accounts belong to the user
     accounts = User.find(session[:current_user_id]).accounts.sorted_by_banking_type
 
-    # create an array to place grouped accounts using an array of array of Account
-    # array of Account is an associated array by the banking type
+    # create a hash to group accounts based on the banking type
+    # key is a banking type and value is an array of accounts
     @grouped_accounts = Hash.new
     
     # do the same, but keeping track of the total
     @grouped_total = Hash.new
     
-    # for each banking_type add a new key to @grouped_accounts and @grouped_total creating a new empty array
+    # for each banking_type add a new key to @grouped_accounts and @grouped_total
     Account.banking_types.each { |key, value|
       @grouped_accounts[key] = Array.new
       @grouped_total[key] = 0
     }
     
     # for each account, sort them according to their banking_type
-    # insert into @grouped_accounts indexed by banking_type
+    # insert the account into the hash of arrays
     accounts.each do |account|
       @grouped_accounts[account.banking_type] << account
       @grouped_total[account.banking_type] += account.balance

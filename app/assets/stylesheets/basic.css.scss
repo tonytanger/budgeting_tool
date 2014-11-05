@@ -36,6 +36,18 @@ html, body {
 }
 
 /**
+ * Negative Dollar Values
+ */
+.negative-balance {
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
+}
+
+/**
  * Footer
  */
 @import "refills/footer_2";
