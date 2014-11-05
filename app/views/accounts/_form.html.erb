@@ -1,11 +1,30 @@
-<%= f.label(:name) %>
-<%= f.text_field(:name) %>
+<% if @account.errors.any? %>
+  <div class="error_explanation">
+    <div class="error-title"> 
+      There <%= "is".pluralize(@account.errors.count) %> <%= pluralize(@account.errors.count, "error") %> in this form!
+    </div>
+    <ul>
+      <% @account.errors.full_messages.each do |message| %>
+      <li class="error-message"><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-<%= f.label(:balance) %>
-<%= f.text_field(:balance) %>
+<%= f.label(:bank_name, "Bank Name") %>
+<%= f.text_field(:bank_name, placeholder: "name of the bank") %>
 
-<%= f.label(:account_number) %>
-<%= f.text_field(:account_number) %>
+<%= f.label(:name, "Account Name") %>
+<%= f.text_field(:name, placeholder: "name of the card") %>
+
+<%= f.label(:balance, "Balance ($)") %>
+<%= f.text_field(:balance, placeholder: "current balance") %>
+
+<%= f.label(:account_number, "Account Number") %>
+<%= f.text_field(:account_number, placeholder: "account/card number") %>
+
+<%= f.label(:banking_type, "Type") %>
+<%= f.select(:banking_type, Account.banking_types.map {|key, val| [key.titleize, key.downcase]}) %>
 
 <%= f.label(:description) %>
-<%= f.text_area(:description, size: "40x10") %>
+<%= f.text_area(:description, size: "10x4", placeholder: "optional") %>

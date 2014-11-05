@@ -8,6 +8,7 @@ capybara-*.html
 /config/database.yml
 /config/additional_environment.rb
 /public/system
+/public/assets/
 /coverage/
 /spec/tmp
 **.orig

@@ -1,16 +1,70 @@
-<%= @page_title = "Account" %>
-
-<strong>id: </strong><%= @account.id %> <br />
-<strong>belongs to: </strong> <%= !@account.user_id.blank? ? "User ##{@account.user_id}" : "not available" %> <br />
-<strong>balance: </strong><%= @account.balance %> <br />
-<strong>account number:</strong> <%= @account.account_number %> <br />
-<strong>description:</strong> <%= @account.description %> <br />
-
-<% @transactions.each do |transaction| %>
-  <%= link_to("Transaction: #{transaction.id}", {controller: "transactions", action: "show", id: transaction.id}) %><br />
-<% end %>
-<br />
-<%= link_to("Add Transaction", {controller: "transactions", action: "new", account_id: @account.id }) %>
-<br />
-
-<%= link_to "Back to Index", {action: "index"} %>
+<% @page_title = "Account" %>
+<div class="top-action-bar">
+  <div class="breadcrumb">
+    <%= link_to "<< Back to Index", {action: "index"} %>
+  </div>
+  <div class="button-group">
+    <div class="edit-account">
+      <%= link_to("Edit", {action: "edit", id: @account.id }, class: "btn") %>
+    </div>
+    <div class="add-transaction-wrapper">
+      <%= link_to("Add Transaction", {controller: "transactions", action: "new", account_id: @account.id }, class: "btn") %>
+    </div>
+  </div>
+</div>
+<div class="account-heading">
+  <h2><%= @account.banking_type.titleize %> Accounts Activity</h2>
+</div>
+<div class="panel">
+  <div class="account-name panel-heading">
+    <%= @account.bank_name %>: <%= @account.name %> - <%= @account.account_number %>
+  </div>
+  <div class="account-info panel-body">
+    <div class="account-balance<%= @account.balance < 0 ? " negative-balance" : "" %>">
+      <div class="account-balance-title">Current Balance</div>
+      <div class="account-balance-balance"><%= number_to_currency(@account.balance.abs) %></div>
+    </div>
+    <% unless @account.description.strip.blank? %>
+    <div class="account-description">
+      <div>Description</div>
+      <div class="description"><%= @account.description %></div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="panel">
+  <div class="panel-heading">
+    Transactions
+  </div>
+  <div class="panel-body">
+    <table class="transactions">
+      <tr>
+        <th class="transaction-date">Date</th>
+        <th class="transaction-description">Description</th>
+        <th class="transaction-category">Category</th>
+        <th class="transaction-amount">Amount</th>
+        <th class="transaction-balance">Balance</th>
+      </tr>
+      <% @transactions.each do |transaction| %>
+        <tr>
+          <td class="transaction-date">
+            <%= transaction.receipt_date.to_formatted_s(:simple) %>
+          </td>
+          <td class="transaction-description">
+            <%= link_to("#{transaction.description}", {controller: "transactions", action: "show", id: transaction.id})%>
+          </td>
+          <td class="transaction-category">
+            <%= transaction.category.name %>
+          </td>
+          <td class="transaction-amount <%= transaction.cash_flow < 0 ? " negative-balance" : "" %>"><%= number_to_currency(transaction.cash_flow.abs) %></td>
+          <td class="transaction-balance <%= transaction.cash_flow < 0 ? " negative-balance" : "" %>"><%= number_to_currency(transaction.current_balance.abs)%></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="panel-footer account-transaction-summary">
+    <div class="account-transaction-total">Total:</div>
+    <div class="account-cash-flow-total"><%= number_to_currency(@cash_flow_total) %></div>
+    <div class="empty-cell">&nbsp;</div>
+  </div>
+</div>

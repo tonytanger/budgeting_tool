@@ -3,21 +3,20 @@
 <head>
   <title>Budgeting Tool - <%= @page_title %></title>
   <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
     <% if !flash[:notice].blank? %>
-      <div class="has-notice">
-        <%= flash[:notice] %>
+      <div class="flash-notice">
+        <span><%= flash[:notice] %></span>
       </div>
     <% elsif !flash[:success].blank? %>
-      <div class="has-success">
-        <%= flash[:success] %>
+      <div class="flash-success">
+        <span><%= flash[:success] %></span>
       </div>
     <% elsif !flash[:error].blank? %>
-      <div class="has-error">
-        <%= flash[:error] %>
+      <div class="flash-error">
+        <span><%= flash[:error] %></span>
       </div>
     <% end %>
     <%= render(:partial => "refills/navigation") %>
@@ -30,5 +29,6 @@
     <!-- End of Main Body -->
     <%= render(:partial => "refills/footer_2") %>
   </div>
+  <%= javascript_include_tag 'application' %>
 </body>
 </html>

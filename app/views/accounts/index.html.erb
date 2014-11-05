@@ -1,39 +1,52 @@
 <% @page_title = "Accounts" %>
-<table border="1px">
-  <tr>
-    <th>id</th>
-    <th>user_id</th>
-    <th>name</th>
-    <th>balance</th>
-    <th>account_number</th>
-    <th>description</th>
-    <th>actions</th>
-  </tr>
-  <% @accounts.each do |account| %>
-    <tr 
-    <% if account.user_id == session[:current_user_id] %>
-      class="current_user_account"
-    <% end %>
-    >
-      <td>
-        <%= link_to(action: "show", id: account.id) do %>
-          <%= account.id %>
-        <% end %>
-      </td>
-      <td><%= account.user_id %></td>
-      <td><%= account.name %></td>
-      <td>$<%= account.balance %></td>
-      <td><%= account.account_number %></td>
-      <td><%= account.description %></td>
-      <td>
 
-        <%= link_to "add transaction", {controller: "transactions", action: "new", account_id: account.id} %>
-        <%= link_to "show", {action: "show", id: account.id} %>
-        <%= link_to "edit", {action: "edit", id: account.id} %>
-        <%= link_to "delete", {action: "destroy", id: account.id} %>
-      </td>
-    </tr>
+<% last_banking_type = "" %>
+<% account_count = 0 %>
+<div class="account-heading">
+  <h2 class="page-heading">
+    Accounts Overview
+    <div class="total-balance">Total: <%= number_to_currency(@grand_total) %></div>
+  </h2>
+</div>
+<% @grouped_accounts.each do |group_name, accounts| %>
+  <% unless accounts.empty? %>
+    <div class="panel">
+      <div class="panel-heading">
+        <strong><%= group_name.titleize %></strong>
+      </div>
+      <div class="panel-body">
+        <table class="accounts-table">
+          <thead>
+            <tr>
+              <th class="account-name">Name</th>
+              <th class="account-number">Account Number</th>
+              <th class="account-balance">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% accounts.each do |account| %>
+            <tr id="account-<%= account.id %>" >
+              <td class="account-name">
+                <%= link_to( "#{account.bank_name} - #{account.name}", action: "show", id: account.id) %>
+              </td>
+              <td class="account-number"><%= account.account_number %></td>
+              <td class="account-balance<%= account.balance < 0 ? " negative-balance" : "" %>"><%= number_to_currency(account.balance.abs) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <div class="accounts-summary">
+          <div class="footer-heading">Total: </div>
+          <div class="footer-total"><%= number_to_currency(@grouped_total[group_name])%></div>
+        </div>
+      </div>
+    </div>
   <% end %>
-</table>
-
-  <%= link_to("Add new account", {action: "new"} ) %>
+<% end %>
+<div class="bottom-action-bar">
+  <div class="add-account">
+    <%= link_to('New Account', {action: 'new'}, class: 'btn') %>
+  </div>
+</div>

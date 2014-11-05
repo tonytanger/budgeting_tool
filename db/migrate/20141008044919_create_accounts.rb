@@ -5,7 +5,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.index :user_id
       t.string :name, :null => false
       t.string :account_number
-      t.integer :balance, :default => 0
+      t.decimal :balance, precision: 15, scale: 2
       t.text :description
 
       t.timestamps

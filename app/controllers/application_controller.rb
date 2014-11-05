@@ -16,12 +16,20 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def confirm_id()
+    def confirm_id
       unless params[:id]
         redirect_to(action: "index")
         return false
       else
         return true
       end
+    end
+
+    def sum_cash_flow(array)
+      sum = 0
+      array.each do |a|
+        sum += a.cash_flow
+      end
+      return sum
     end
 end
